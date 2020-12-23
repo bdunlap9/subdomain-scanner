@@ -35,7 +35,8 @@ def main(default, brute, brute_wordlist, wordlist):
                 ip = socket.gethostbyname(str(host))
                 print('[NAMESERVER] -> ' + host + ' -> [IP] -> ' + ip)
             except:
-                print(f'Scan progress: {sub}')
+                # DEBUG PURPOSE: print(f'Scan progress: {sub}')
+                pass
     elif args.brute_wordlist and args.wordlist:
         try:
             print('Loading word list...')
