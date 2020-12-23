@@ -28,15 +28,17 @@ def main(default, brute, brute_wordlist, wordlist):
             except:
                 pass
     elif args.brute:
-        gen = itertools.combinations_with_replacement('abcdefghijklmnopqrstuvwxyz0123456789', int(50))
-        for sub in gen:
-            try:
-                host = str(sub) + '.' + str(args.dbrute)
-                ip = socket.gethostbyname(str(host))
-                print('[NAMESERVER] -> ' + host + ' -> [IP] -> ' + ip)
-            except:
-                # DEBUG PURPOSE: print(f'Scan progress: {sub}')
-                pass
+        for char_count in range(1, 50):
+            print(f'Count: {char_count}')
+            time.sleep(0.3)
+            gen = itertools.combinations_with_replacement('abcdefghijklmnopqrstuvwxyz0123456789', int(char_count))
+            for sub in gen:
+                try:
+                    host = str(sub) + '.' + str(args.dbrute)
+                    ip = socket.gethostbyname(str(host))
+                    print('[NAMESERVER] -> ' + host + ' -> [IP] -> ' + ip)
+                except:
+                    print(f'Scan progress: {sub}')
     elif args.brute_wordlist and args.wordlist:
         try:
             print('Loading word list...')
@@ -61,10 +63,10 @@ if __name__ == '__main__':
     t1.start()
     t1.join()
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('-default', type=str, help='default subdomain scanner (Uses a default wordlist)')
-    parser.add_argument('-brute', type=str, help='Pure brute force method')
-    parser.add_argument('-brute_wordlist', type=str, help='Brute force method using a wordlist (Must use -wordlist in command)')
-    parser.add_argument('-wordlist', type=str, help='Location of Wordlist file to use')    
+    parser.add_argument('-default', required=False, type=str, help='default subdomain scanner (Uses a default wordlist)')
+    parser.add_argument('-brute', required=False, type=str, help='Pure brute force method')
+    parser.add_argument('-brute_wordlist', required=False, type=str, help='Brute force method using a wordlist (Must use -wordlist in command)')
+    parser.add_argument('-wordlist', required=False, type=str, help='Location of Wordlist file to use')    
     args = parser.parse_args()
     default = args.default
     brute = args.brute
