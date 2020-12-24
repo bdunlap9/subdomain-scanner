@@ -24,21 +24,22 @@ def main(default, brute, brute_wordlist, wordlist):
             try:
                 host = str(sub) + '.' + str(args.default)
                 ip = socket.gethostbyname(str(host))
-                print('[NAMESERVER] -> ' + host + ' -> [IP] -> ' + ip)
             except:
                 pass
+            else:
+                print('[NAMESERVER] -> ' + host + ' -> [IP] -> ' + ip)
     elif args.brute:
-        for char_count in range(1, 50):
-            print(f'Count: {char_count}')
-            time.sleep(0.3)
+        for char_count in range(1, 11):
+            print(f'[BRUTE] -> Character Length: {char_count}')
             gen = itertools.combinations_with_replacement('abcdefghijklmnopqrstuvwxyz0123456789', int(char_count))
             for sub in gen:
                 try:
                     host = str(sub) + '.' + str(args.dbrute)
                     ip = socket.gethostbyname(str(host))
-                    print('[NAMESERVER] -> ' + host + ' -> [IP] -> ' + ip)
                 except:
-                    print(f'Scan progress: {sub}')
+                    pass
+                else:
+                    print('[NAMESERVER] -> ' + host + ' -> [IP] -> ' + ip)
     elif args.brute_wordlist and args.wordlist:
         try:
             print('Loading word list...')
@@ -59,9 +60,6 @@ def main(default, brute, brute_wordlist, wordlist):
         print('Invalid argument used! Please try again')
 
 if __name__ == '__main__':
-    t1 = Thread(target=main)
-    t1.start()
-    t1.join()
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('-default', required=False, type=str, help='default subdomain scanner (Uses a default wordlist)')
     parser.add_argument('-brute', required=False, type=str, help='Pure brute force method')
