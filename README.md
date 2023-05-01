@@ -1,68 +1,69 @@
-# Subdomain Scanner
+# Advanced Subdomain Scanner
 
-The Subdomain Scanner is a simple Python script that helps you discover subdomains for a given domain using a list of potential subdomain names. This tool is useful for penetration testing, information gathering, and reconnaissance.
+An asynchronous subdomain scanner written in Python, designed to quickly scan for subdomains using a wordlist or brute force approach. The scanner uses aiohttp to handle multiple connections concurrently, significantly speeding up the scanning process.
 
 ## Features
 
-- Scans subdomains using a list of potential names.
-- Concurrent scanning for faster results.
-- Displays found subdomains with corresponding IP addresses.
+- Asynchronous subdomain scanning
+- Wordlist-based subdomain scanning
+- Brute force subdomain scanning with specified length range
+- Adjustable concurrency level for scanning
 
 ## Requirements
 
-- Python 3.7 or higher
+- Python 3.7+
 - aiohttp
-- asyncio
 
-## Installation
-
-1. Clone the repository:
+To install aiohttp, run:
 
 ```
-git clone https://github.com/bdunlap9/subdomain-scanner.git
-```
-
-2. Change to the project directory:
-
-```
-cd subdomain-scanner
-```
-
-3. Install the required Python packages:
-
-```
-pip install -r requirements.txt
+pip install aiohttp
 ```
 
 ## Usage
 
-To use the Subdomain Scanner, run the following command:
+```
+usage: Advanced Subdomain Scanner [-h] -d DOMAIN [-w WORDLIST] [-c CONCURRENCY] [-b] [-r RANGE]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -d DOMAIN, --domain DOMAIN
+                        Domain to scan
+  -w WORDLIST, --wordlist WORDLIST
+                        Wordlist file
+  -c CONCURRENCY, --concurrency CONCURRENCY
+                        Concurrency level (default: 50)
+  -b, --bruteforce      Enable brute force scanning
+  -r RANGE, --range RANGE
+                        Length range for brute force (e.g. '3 5')
+```
+
+### Examples
+
+Scan a domain using a wordlist:
 
 ```
-python sscan.py -d <domain> -w <wordlist>
+python advanced_subdomain_scanner.py -d example.com -w wordlist.txt
 ```
 
-Replace `<domain>` with the domain you want to scan and `<wordlist>` with the path to a wordlist file containing potential subdomain names. The scanner will attempt to resolve each subdomain in the wordlist and display the results.
-
-Example:
+Scan a domain using brute force with a length range of 3 to 5 characters:
 
 ```
-python sscan.py -d example.com -w wordlist.txt
+python advanced_subdomain_scanner.py -d example.com -b -r 3 5
 ```
 
-## Customization
+Scan a domain using both a wordlist and brute force:
 
-You can customize the Subdomain Scanner by modifying the `sscan.py` file. You can change the concurrency settings, add new features, or update the output format based on your requirements.
+```
+python advanced_subdomain_scanner.py -d example.com -w wordlist.txt -b -r 3 5
+```
 
-## Contributing
+Adjust the concurrency level (default is 50):
 
-Contributions to this project are welcome. To contribute, please follow these steps:
+```
+python advanced_subdomain_scanner.py -d example.com -w wordlist.txt -c 100
+```
 
-1. Fork the repository.
-2. Create a new branch with your changes.
-3. Commit your changes and push them to your fork.
-4. Create a pull request to merge your changes with the main repository.
+## Note
 
-## License
-
-This project is released under the MIT License.
+Please use this tool responsibly and only on domains you have permission to scan. Misuse of this tool may lead to legal consequences.
